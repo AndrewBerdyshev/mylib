@@ -45,22 +45,13 @@ uint32_t mylib::GetThreadID(uint32_t processID)
 	return NULL;
 }
 
-uint8_t* mylib::MyReadFile(const char* fileName)
+uint8_t* mylib::ReadFile(const char* fileName)
 {
-	/*const auto file = CreateFileA(fileName, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE
-		, 0, OPEN_EXISTING, 0, 0);
-	if (file == INVALID_HANDLE_VALUE) return nullptr;
-	if (!file) return nullptr;
-	const auto fileSize = GetFileSize(file, 0);
-	auto res = new char[fileSize];
-	if(!ReadFile(file, res, fileSize, nullptr, nullptr)) return nullptr;
-	CloseHandle(file);
-	return reinterpret_cast<uint8_t*>(res);*/
-	std::ifstream fin(fileName, std::ios::binary | std::ios::ate | std::ios::in);
+	std::ifstream fin(fileName, std::ios::in | std::ios::binary | std::ios::ate);
 	if (!fin.is_open()) return nullptr;
 	const auto fileSize = fin.tellg();
 	fin.seekg(0, std::ios::beg);
-	auto result = new char[fileSize];
-	fin.read(result, fileSize);
-	return reinterpret_cast<uint8_t*>(result);
+	auto res = new char[fileSize];
+	fin.read(res, fileSize);
+	return reinterpret_cast<uint8_t*>(res);
 }
