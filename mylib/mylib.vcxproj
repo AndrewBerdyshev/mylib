@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="src\mylib.cpp" />
     <ClCompile Include="src\shadowVMT.cpp" />
+    <ClCompile Include="src\VMT.cpp" />
     <ClCompile Include="test\main.cpp" />
   </ItemGroup>
   <ItemGroup>
