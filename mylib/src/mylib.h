@@ -43,15 +43,16 @@ namespace mylib
 			return (*reinterpret_cast<Fn**>(vmt))[index](vmt, params ...);
 		}
 		uintptr_t VMTGet(uintptr_t vmt, uint64_t index);
-		template<typename ... Params>
-		uintptr_t PointerMagic(uintptr_t start, Params ... offsets)
-		{
-			uintptr_t result = start;
-			([&]
-				{
-					result = *reinterpret_cast<uintptr_t*>(result + offsets);
-				} (), ...);
-			return result;
-		}
+	}
+
+	template<typename ... Params>
+	uintptr_t PointerMagic(uintptr_t start, Params ... offsets)
+	{
+		uintptr_t result = start;
+		([&]
+			{
+				result = *reinterpret_cast<uintptr_t*>(result + offsets);
+			} (), ...);
+		return result;
 	}
 }
