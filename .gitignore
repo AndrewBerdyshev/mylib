@@ -7,6 +7,10 @@
 build/
 intermediate/
 test/
+temp/
+*.sln
+*.vcxproj
+*.filters
 
 # User-specific files
 *.rsuser
