@@ -27,7 +27,7 @@ namespace mylib
 			template<typename Result, typename ... Args>
 			Result Call(uint64_t index, Args ... args)
 			{
-				using Fn = Result(__thiscall*)(void*, decltype(Args)...);
+				using Fn = Result(__thiscall*)(void*, decltype(args)...);
 				reinterpret_cast<Fn*>(originalVMT)[index](originalVMT, args...);
 			}
 		};
