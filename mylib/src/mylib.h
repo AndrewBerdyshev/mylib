@@ -6,7 +6,7 @@
 
 #define CONCAT(x, y) x##y
 #define CONCAT2(x, y) CONCAT(x, y)
-#define PAD(size) std::uint8_t CONCAT2(pad_, __COUNTER__)[size];
+#define PAD(size) uint8_t CONCAT2(pad_, __COUNTER__)[size];
 
 namespace mylib
 {
@@ -27,9 +27,9 @@ namespace mylib
 		public:
 			VMT(uintptr_t* classInstance);
 			~VMT();
-			uintptr_t Hook(uint64_t index, uintptr_t hookFunc);
+			uintptr_t Hook(size_t index, uintptr_t hookFunc);
 			template<typename Result, typename ... Args>
-			Result Call(uint64_t index, Args ... args)
+			Result Call(size_t index, Args ... args)
 			{
 				using Fn = Result(__thiscall*)(void*, decltype(args)...);
 				reinterpret_cast<Fn*>(originalVMT)[index](originalVMT, args...);
@@ -41,12 +41,12 @@ namespace mylib
 	namespace VMT
 	{
 		template<typename Return, typename ... Params>
-		Return VMTCall(void* vmt, uint64_t index, Params ... params)
+		Return VMTCall(void* vmt, size_t index, Params ... params)
 		{
 			using Fn = Return(__thiscall*)(void*, decltype(params) ...);
 			return (*reinterpret_cast<Fn**>(vmt))[index](vmt, params ...);
 		}
-		uintptr_t VMTGet(uintptr_t vmt, uint64_t index);
+		uintptr_t VMTGet(uintptr_t vmt, size_t index);
 	}
 
 	// cheat engine like pointer magic

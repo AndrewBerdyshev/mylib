@@ -7,7 +7,7 @@ mylib::shadowVMT::VMT::VMT(uintptr_t* vmt)
 
 	this->originalVMT = reinterpret_cast<uintptr_t*>(*vmt);
 
-	uint64_t size = 0;
+	size_t size = 0;
 	for (; this->originalVMT[size++];);
 
 	this->shadowVMT = new uintptr_t[size];
@@ -22,7 +22,7 @@ mylib::shadowVMT::VMT::~VMT()
 	*(this->instanceVMT) = reinterpret_cast<uintptr_t>(this->originalVMT);
 }
 
-uintptr_t mylib::shadowVMT::VMT::Hook(uint64_t index, uintptr_t hookFunc)
+uintptr_t mylib::shadowVMT::VMT::Hook(size_t index, uintptr_t hookFunc)
 {
 	this->shadowVMT[index] = hookFunc;
 	return this->originalVMT[index];
