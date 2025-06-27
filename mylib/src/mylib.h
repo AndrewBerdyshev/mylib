@@ -4,6 +4,10 @@
 #include <TlHelp32.h>
 #include <fstream>
 
+#define CONCAT(x, y) x##y
+#define CONCAT2(x, y) CONCAT(x, y)
+#define PAD(size) std::uint8_t CONCAT2(pad_, __COUNTER__)[size];
+
 namespace mylib
 {
 	size_t GetFuncSize(uintptr_t func);
@@ -45,13 +49,15 @@ namespace mylib
 		uintptr_t VMTGet(uintptr_t vmt, uint64_t index);
 	}
 
+	// cheat engine like pointer magic
 	template<typename ... Params>
 	uintptr_t PointerMagic(uintptr_t start, Params ... offsets)
 	{
 		uintptr_t result = start;
 		([&]
 			{
-				result = *reinterpret_cast<uintptr_t*>(result + offsets);
+				result = *reinterpret_cast<uintptr_t*>(result);
+				result += offsets;
 			} (), ...);
 		return result;
 	}
