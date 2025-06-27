@@ -1,4 +1,4 @@
-#include "mylib.h"
+#include "mylib.hpp"
 
 uintptr_t mylib::VMT::VMTGet(uintptr_t vmt, size_t index)
 {

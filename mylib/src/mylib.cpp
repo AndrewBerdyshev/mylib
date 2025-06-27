@@ -1,4 +1,4 @@
-#include "mylib.h"
+#include "mylib.hpp"
 
 size_t mylib::GetFuncSize(uintptr_t func)
 {

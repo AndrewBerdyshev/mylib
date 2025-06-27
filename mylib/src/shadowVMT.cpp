@@ -1,4 +1,4 @@
-#include "mylib.h"
+#include "mylib.hpp"
 
 mylib::shadowVMT::VMT::VMT(uintptr_t* vmt)
 {
